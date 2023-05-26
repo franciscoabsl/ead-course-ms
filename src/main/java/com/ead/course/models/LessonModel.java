@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
