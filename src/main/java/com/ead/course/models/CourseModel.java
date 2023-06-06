@@ -1,11 +1,14 @@
 package com.ead.course.models;
 
 import com.ead.course.enums.CourseLevel.CourseLevel;
-import com.ead.course.enums.CourseStatus.CourseStatus;
+import com.ead.course.enums.CourseStatus;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -43,7 +46,8 @@ public class CourseModel implements Serializable {
     private UUID instructor;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ModuleModel> modules;
 
 }

@@ -1,4 +1,4 @@
-package com.ead.course.enums.CourseStatus;
+package com.ead.course.enums;
 
 public enum CourseStatus {
     INPROGRESS,

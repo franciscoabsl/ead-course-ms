@@ -2,8 +2,11 @@ package com.ead.course.models;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,11 +30,12 @@ public class ModuleModel  implements Serializable {
     private LocalDateTime creationDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CourseModel course;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "module")
+    @OneToMany(mappedBy = "module", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<LessonModel> lessons;
 
 }
