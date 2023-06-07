@@ -62,7 +62,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CourseModel>> getAllCourser() {
+    public ResponseEntity<List<CourseModel>> getAllCourses() {
         return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll());
     }
 
