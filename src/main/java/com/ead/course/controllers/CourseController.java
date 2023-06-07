@@ -22,8 +22,6 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<Object> saveCourse(@RequestBody @Valid CourseDto courseDto) {
-        System.out.println(courseDto.getUserInstructor());
-
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(courseDto, courseModel);
         courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
