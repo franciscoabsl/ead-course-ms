@@ -1,6 +1,6 @@
 package com.ead.course.models;
 
-import com.ead.course.enums.CourseLevel.CourseLevel;
+import com.ead.course.enums.CourseLevel;
 import com.ead.course.enums.CourseStatus;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
@@ -43,7 +43,7 @@ public class CourseModel implements Serializable {
     @Enumerated(EnumType.STRING)
     private CourseLevel courseLevel;
     @Column(nullable = false)
-    private UUID instructor;
+    private UUID userInstructor;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
