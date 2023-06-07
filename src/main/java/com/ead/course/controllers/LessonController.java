@@ -22,7 +22,7 @@ public class LessonController {
     @Autowired
     ModuleService moduleService;
 
-    @PostMapping("/modules/{modulesId}/lessons")
+    @PostMapping("/modules/{moduleId}/lessons")
     public ResponseEntity<Object> saveLesson(@PathVariable(value = "moduleId") UUID moduleId, @RequestBody @Valid LessonDto lessonDto) {
 
         Optional<ModuleModel> moduleModelOptional = moduleService.findById(moduleId);
@@ -55,7 +55,7 @@ public class LessonController {
     }
 
     @PutMapping("/modules/{moduleId}/lessons/{lessonId}")
-    public ResponseEntity<Object> updateModule(@PathVariable(value = "moduleId") UUID moduleId,
+    public ResponseEntity<Object> updateLesson(@PathVariable(value = "moduleId") UUID moduleId,
                                                @PathVariable(value = "lessonId") UUID lessonId,
                                                @RequestBody @Valid LessonDto lessonDto) {
 
@@ -79,7 +79,7 @@ public class LessonController {
     }
 
     @GetMapping("/modules/{moduleId}/lessons/{lessonId}")
-    public ResponseEntity<Object> getOneModule(@PathVariable(value = "moduleId") UUID moduleId,
+    public ResponseEntity<Object> getOneLesson(@PathVariable(value = "moduleId") UUID moduleId,
                                                @PathVariable(value = "lessonId") UUID lessonId) {
         Optional<LessonModel> lessonModelOptional = lessonService.findLessonIntoModule(moduleId, lessonId);
 
