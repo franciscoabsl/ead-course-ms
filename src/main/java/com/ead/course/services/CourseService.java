@@ -1,6 +1,8 @@
 package com.ead.course.services;
 
 import com.ead.course.models.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.*;
 
 import java.util.*;
 
@@ -11,5 +13,5 @@ public interface CourseService {
 
     Optional<CourseModel> findById(UUID courseId);
 
-    List<CourseModel> findAll();
+    Page<CourseModel> findAll(Specification<CourseModel> spec, Pageable pageable);
 }

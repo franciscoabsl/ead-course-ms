@@ -4,6 +4,8 @@ import com.ead.course.models.*;
 import com.ead.course.repositories.*;
 import com.ead.course.services.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.*;
@@ -47,5 +49,10 @@ public class ModuleServiceImpl implements ModuleService {
     @Override
     public Optional<ModuleModel> findById(UUID moduleId) {
         return moduleRepository.findById(moduleId);
+    }
+
+    @Override
+    public Page<ModuleModel> findAllByCourse(Specification<ModuleModel> spec, Pageable pageable) {
+        return moduleRepository.findAll(spec, pageable);
     }
 }

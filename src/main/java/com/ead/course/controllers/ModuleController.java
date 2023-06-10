@@ -3,8 +3,11 @@ package com.ead.course.controllers;
 import com.ead.course.dtos.*;
 import com.ead.course.models.*;
 import com.ead.course.services.*;
+import com.ead.course.specifications.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,8 +77,19 @@ public class ModuleController {
     }
 
     @GetMapping("/courses/{courseId}/modules")
-    public ResponseEntity<List<ModuleModel>> getAllModules(@PathVariable(value = "courseId") UUID courseId) {
-        return ResponseEntity.status(HttpStatus.OK).body(moduleService.findAllByCourse(courseId));
+    public ResponseEntity<Page<ModuleModel>> getAllModules(@PathVariable(value = "courseId") UUID courseId,
+                                                           SpecificationTemplate.ModuleSpec spec,
+                                                           @PageableDefault(page = 0, size = 10, sort = "moduleId",
+                                                                   direction = Sort.Direction.ASC) Pageable pageable) {
+
+        Page<ModuleModel> modules = moduleService.findAllByCourse(
+                SpecificationTemplate.moduleCourseId(courseId).and(spec),
+                pageable
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(modules);
     }
 
     @GetMapping("/courses/{courseId}/modules/{moduleId}")

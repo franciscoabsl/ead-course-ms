@@ -3,8 +3,11 @@ package com.ead.course.controllers;
 import com.ead.course.dtos.*;
 import com.ead.course.models.*;
 import com.ead.course.services.*;
+import com.ead.course.specifications.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +46,8 @@ public class CourseController {
     }
 
     @PutMapping("/{courseId}")
-    public ResponseEntity<Object> updateCourse(@PathVariable(value = "courseId") UUID courseId, @RequestBody @Valid CourseDto courseDto) {
+    public ResponseEntity<Object> updateCourse(@PathVariable(value = "courseId") UUID courseId,
+                                               @RequestBody @Valid CourseDto courseDto) {
         Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
 
         if(!courseModelOptional.isPresent()) {
@@ -62,8 +66,10 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CourseModel>> getAllCourses() {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll());
+    public ResponseEntity<Page<CourseModel>> getAllCourses(SpecificationTemplate.CourseSpec spec,
+                                                            @PageableDefault(page = 0, size = 10, sort = "courseId",
+                                                            direction = Sort.Direction.ASC) Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.findAll(spec, pageable));
     }
 
     @GetMapping("/{courseId}")

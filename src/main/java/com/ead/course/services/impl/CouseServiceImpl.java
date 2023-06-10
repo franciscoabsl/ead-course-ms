@@ -2,9 +2,11 @@ package com.ead.course.services.impl;
 
 import com.ead.course.models.*;
 import com.ead.course.repositories.*;
-import com.ead.course.services.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.ead.course.services.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.*;
+import org.springframework.stereotype.*;
 
 import javax.transaction.*;
 import java.util.*;
@@ -50,7 +52,7 @@ public class CouseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseModel> findAll() {
-        return courseRepository.findAll();
+    public Page<CourseModel> findAll(Specification<CourseModel> spec, Pageable pageable) {
+        return courseRepository.findAll(spec, pageable);
     }
 }
