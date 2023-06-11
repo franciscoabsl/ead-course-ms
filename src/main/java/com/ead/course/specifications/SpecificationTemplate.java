@@ -45,4 +45,12 @@ public class SpecificationTemplate {
             return cb.and(cb.equal(module.get("moduleId"), moduleId), cb.isMember(lesson, moduleLessons));
         };
     }
+
+    public static Specification<CourseModel> courseUserId(final UUID userId) {
+        return (root, query, cb) -> {
+            query.distinct(true);
+            Join<CourseModel, CourseUserModel> courseProd = root.join("courseUsers");
+            return cb.equal(courseProd.get("userId"), userId);
+        };
+    }
 }
