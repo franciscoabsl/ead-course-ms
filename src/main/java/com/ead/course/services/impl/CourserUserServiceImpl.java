@@ -1,6 +1,7 @@
 package com.ead.course.services.impl;
 
 import com.ead.course.models.CourseModel;
+import com.ead.course.models.CourseUserModel;
 import com.ead.course.repositories.*;
 import com.ead.course.services.*;
 import org.springframework.beans.factory.annotation.*;
@@ -17,5 +18,10 @@ public class CourserUserServiceImpl implements CourseUserService{
     @Override
     public boolean existsByCourseAndUserId(CourseModel courseModel, UUID userId) {
         return courseUserRepository.existsByCourseAndUserId(courseModel, userId);
+    }
+
+    @Override
+    public CourseUserModel save(CourseUserModel courseUserModel) {
+        return courseUserRepository.save(courseUserModel);
     }
 }

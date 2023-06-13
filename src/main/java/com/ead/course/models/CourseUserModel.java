@@ -6,6 +6,8 @@ import java.util.*;
 import javax.persistence.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "TB_COURSES_USERS")
@@ -16,9 +18,9 @@ public class CourseUserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private CourseModel course;
     @Column(nullable = false)
     private UUID userId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private CourseModel course;
 
 }
