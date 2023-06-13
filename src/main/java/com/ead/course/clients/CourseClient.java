@@ -23,11 +23,14 @@ public class CourseClient {
     @Autowired
     UtilsService utilsService;
 
+    @Value("${ead.api.url.authuser}")
+    String REQUEST_URL_AUTHUSER;
+
     public Page<UserDto> getAllUsersByCourse(UUID courseId, Pageable pageable) {
         List<UserDto> searchResult = null;
         ResponseEntity<ResponsePageDto<UserDto>> result = null;
 
-        String url = utilsService.createUrl(courseId, pageable);
+        String url = REQUEST_URL_AUTHUSER + utilsService.createUrlGetAllUsersByCourse(courseId, pageable);
 
         log.debug("REQUEST URL: {} ", url);
         log.info("REQUEST URL: {} ", url);
