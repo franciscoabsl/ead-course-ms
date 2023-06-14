@@ -1,6 +1,5 @@
 package com.ead.course.clients;
 
-import com.ead.course.configs.*;
 import com.ead.course.dtos.*;
 import com.ead.course.services.*;
 import lombok.extern.log4j.*;
@@ -9,13 +8,14 @@ import org.springframework.core.*;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.*;
 
 import java.util.*;
 
 @Log4j2
 @Component
-public class CourseClient {
+public class AuthUserClient {
 
     @Autowired
     RestTemplate restTemplate;
@@ -49,6 +49,12 @@ public class CourseClient {
         log.debug("Ending request /users courseId {} ", courseId);
 
         return result.getBody();
+    }
+
+    public ResponseEntity<UserDto> getOneUserById(UUID userId) {
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId;
+
+        return restTemplate.exchange(url, HttpMethod.GET, null, UserDto.class);
     }
 
 }
