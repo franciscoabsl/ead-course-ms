@@ -1,6 +1,7 @@
 package com.ead.course.clients;
 
 import com.ead.course.dtos.*;
+import com.ead.course.models.CourseModel;
 import com.ead.course.services.*;
 import lombok.extern.log4j.*;
 import org.springframework.beans.factory.annotation.*;
@@ -57,4 +58,12 @@ public class AuthUserClient {
         return restTemplate.exchange(url, HttpMethod.GET, null, UserDto.class);
     }
 
+    public void postSubscriptionUserInCourse(UUID courseId, UUID userId) {
+        String url = REQUEST_URL_AUTHUSER + "/users/" + userId + "/courses/subscription";
+        var courseUserDto = new CourseUserDto();
+        courseUserDto.setUserId(userId);
+        courseUserDto.setCourseId(courseId);
+
+        restTemplate.postForObject(url, courseUserDto, String.class);
+    }
 }

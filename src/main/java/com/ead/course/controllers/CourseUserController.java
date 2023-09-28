@@ -73,7 +73,7 @@ public class CourseUserController {
             }
         }
 
-        CourseUserModel courseUserModel = courseUserService.save(
+        CourseUserModel courseUserModel = courseUserService.saveAndSendSubscriptionUserInCourse(
             courseModelOptional.get().convertToCourseUserModel(subscriptionDto.getUserId())
         );
 
