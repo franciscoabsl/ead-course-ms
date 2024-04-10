@@ -23,6 +23,9 @@ public class CouseServiceImpl implements CourseService {
     @Autowired
     LessonRepository lessonRepository;
 
+    @Autowired
+    CourseUserRepository courseUserRepository;
+
     @Transactional
     @Override
     public void delete(CourseModel courseModel) {
@@ -38,6 +41,13 @@ public class CouseServiceImpl implements CourseService {
             }
             moduleRepository.deleteAll(moduleModelList);
         }
+
+        List<CourseUserModel> courseUserModelList = courseUserRepository.findAllCourseUserIntoCourse(courseModel.getCourseId());
+
+        if (!courseUserModelList.isEmpty()) {
+            courseUserRepository.deleteAll(courseUserModelList);
+        }
+
         courseRepository.delete(courseModel);
     }
 

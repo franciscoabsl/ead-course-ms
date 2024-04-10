@@ -4,11 +4,13 @@ import com.ead.course.dtos.*;
 import com.ead.course.models.*;
 import com.ead.course.services.*;
 import com.ead.course.specifications.*;
+import com.ead.course.validation.CourseValidator;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.*;
 import org.springframework.http.*;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
@@ -23,8 +25,17 @@ public class CourseController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    CourseValidator courseValidator;
+
     @PostMapping
-    public ResponseEntity<Object> saveCourse(@RequestBody @Valid CourseDto courseDto) {
+    public ResponseEntity<Object> saveCourse(@RequestBody CourseDto courseDto, Errors errors) {
+        courseValidator.validate(courseDto, errors);
+
+        if(errors.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.getAllErrors());
+        }
+
         var courseModel = new CourseModel();
         BeanUtils.copyProperties(courseDto, courseModel);
         courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
