@@ -1,6 +1,7 @@
 package com.ead.course.configs;
 
 import org.springframework.boot.web.client.*;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.*;
 import org.springframework.web.client.*;
 
