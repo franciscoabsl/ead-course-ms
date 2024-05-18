@@ -8,8 +8,8 @@ spring:
     name: ead-course-service
   datasource:
     url: jdbc:postgresql://localhost:5432/ead-course
-    username: test
-    password: test
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update
